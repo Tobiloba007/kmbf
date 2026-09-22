@@ -1,0 +1,16 @@
+0 verbose cli /Users/mac/.nvm/versions/node/v24.12.0/bin/node /Users/mac/.nvm/versions/node/v24.12.0/bin/npm
+1 info using npm@11.19.1
+2 info using node@v24.12.0
+3 silly config load:file:/Users/mac/.nvm/versions/node/v24.12.0/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/mac/.npmrc
+5 silly config load:file:/Users/mac/.nvm/versions/node/v24.12.0/etc/npmrc
+6 verbose title npm root
+7 verbose argv "root" "--global"
+8 verbose logfile logs-max:10 dir:/Users/mac/Documents/personal/kmbf/npm-cache/_logs/2026-09-22T08_16_11_618Z-
+9 verbose logfile /Users/mac/Documents/personal/kmbf/npm-cache/_logs/2026-09-22T08_16_11_618Z-debug-0.log
+10 verbose cwd /Users/mac/Documents/personal/kmbf
+11 verbose os Darwin 22.6.0
+12 verbose node v24.12.0
+13 verbose npm  v11.19.1
+14 verbose exit 0
+15 info ok
