@@ -23,6 +23,7 @@ const Category = ({
   return (
     <section
       className={`w-full bg-[#f5f2ec] py-12 ${
+        // Flush removes the outer padding for the split featured section.
         flush ? "px-0" : "px-3.5 sm:px-7 lg:px-12"
       }`}
     >

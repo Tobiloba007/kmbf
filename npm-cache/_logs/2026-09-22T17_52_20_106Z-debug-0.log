@@ -1,0 +1,19 @@
+0 verbose cli /Users/mac/.nvm/versions/node/v24.12.0/bin/node /Users/mac/.nvm/versions/node/v24.12.0/lib/node_modules/npm/bin/npm-cli.js
+1 info using npm@11.19.1
+2 info using node@v24.12.0
+3 silly config load:file:/Users/mac/.nvm/versions/node/v24.12.0/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/mac/Documents/personal/kmbf/.npmrc
+5 silly config load:file:/Users/mac/.npmrc
+6 silly config load:file:/Users/mac/.nvm/versions/node/v24.12.0/etc/npmrc
+7 verbose title npm exec eslint app/products/ProductSummaryBar.tsx app/components/Footer.tsx app/products/[slug]/page.tsx
+8 verbose argv "exec" "--" "eslint" "app/products/ProductSummaryBar.tsx" "app/components/Footer.tsx" "app/products/[slug]/page.tsx"
+9 verbose logfile logs-max:10 dir:/Users/mac/Documents/personal/kmbf/npm-cache/_logs/2026-09-22T17_52_20_106Z-
+10 verbose logfile /Users/mac/Documents/personal/kmbf/npm-cache/_logs/2026-09-22T17_52_20_106Z-debug-0.log
+11 silly logfile start cleaning logs, removing 1 files
+12 silly logfile done cleaning log files
+13 verbose cwd /Users/mac/Documents/personal/kmbf
+14 verbose os Darwin 22.6.0
+15 verbose node v24.12.0
+16 verbose npm  v11.19.1
+17 verbose exit 0
+18 info ok

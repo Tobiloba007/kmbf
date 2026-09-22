@@ -32,7 +32,7 @@ const SHOP_CATEGORIES = [
 
 const CART_COUNT = 1;
 
-const Navbar = () => {
+const Navbar = ({ dark = false }: { dark?: boolean }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isShopPanelOpen, setIsShopPanelOpen] = useState(false);
   const [isShopPanelClosing, setIsShopPanelClosing] = useState(false);
@@ -40,6 +40,7 @@ const Navbar = () => {
   const closeShopPanel = () => {
     setIsShopPanelClosing(true);
     setIsShopPanelOpen(false);
+    // Keep the closing animation mounted until its 300ms transition finishes.
     window.setTimeout(() => setIsShopPanelClosing(false), 300);
   };
 
@@ -49,7 +50,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="absolute top-0 left-0 z-50 w-full text-white">
+    <nav
+      className={`absolute top-0 left-0 z-50 w-full ${
+        dark ? "bg-white text-black" : "text-white"
+      }`}
+    >
       <div className="flex items-center justify-between px-3.5 py-4 sm:px-7 lg:px-12">
         {/* Left: mobile toggle + desktop nav links */}
         <div className="flex flex-1 items-center">
@@ -74,11 +79,19 @@ const Navbar = () => {
                   className="group relative inline-block text-sm font-medium tracking-wide"
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 h-[0.5px] w-full bg-white transition-all duration-300 ease-out scale-x-0 origin-left group-hover:scale-x-100" />
+                  <span
+                    className={`absolute -bottom-1 left-0 h-[0.5px] w-full origin-left scale-x-0 transition-all duration-300 ease-out group-hover:scale-x-100 ${
+                      dark ? "bg-black" : "bg-white"
+                    }`}
+                  />
                 </Link>
 
                 {link.expandable && (
-                  <div className="invisible absolute top-full mt-6 left-0 z-50 w-48 translate-y-1 bg-[#f5f2ec] py-2 text-black opacity-0 transition-all duration-200 ease-out group-hover/item:visible group-hover/item:translate-y-0 group-hover/item:opacity-100">
+                  <div
+                    className={`invisible absolute top-full mt-6 left-0 z-50 w-48 translate-y-1 py-2 text-black opacity-0 transition-all duration-200 ease-out group-hover/item:visible group-hover/item:translate-y-0 group-hover/item:opacity-100 ${
+                      dark ? "bg-white" : "bg-[#f5f2ec]"
+                    }`}
+                  >
                     <ul>
                       {SHOP_CATEGORIES.map((category) => (
                         <li key={category}>

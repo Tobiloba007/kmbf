@@ -5,10 +5,10 @@
 4 silly config load:file:/Users/mac/Documents/personal/kmbf/.npmrc
 5 silly config load:file:/Users/mac/.npmrc
 6 silly config load:file:/Users/mac/.nvm/versions/node/v24.12.0/etc/npmrc
-7 verbose title npm run lint
-8 verbose argv "run" "lint"
-9 verbose logfile logs-max:10 dir:/Users/mac/Documents/personal/kmbf/npm-cache/_logs/2026-09-22T07_58_14_686Z-
-10 verbose logfile /Users/mac/Documents/personal/kmbf/npm-cache/_logs/2026-09-22T07_58_14_686Z-debug-0.log
+7 verbose title npm run build
+8 verbose argv "run" "build"
+9 verbose logfile logs-max:10 dir:/Users/mac/Documents/personal/kmbf/npm-cache/_logs/2026-09-22T17_52_29_678Z-
+10 verbose logfile /Users/mac/Documents/personal/kmbf/npm-cache/_logs/2026-09-22T17_52_29_678Z-debug-0.log
 11 silly logfile start cleaning logs, removing 1 files
 12 silly logfile done cleaning log files
 13 verbose cwd /Users/mac/Documents/personal/kmbf

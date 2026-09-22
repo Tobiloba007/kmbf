@@ -48,11 +48,16 @@ const TikTokIcon = () => (
 
 type FooterPanel = "support" | "address";
 
-const Footer = () => {
+type FooterProps = {
+  reserveSummarySpace?: boolean;
+};
+
+const Footer = ({ reserveSummarySpace = false }: FooterProps) => {
   const [openPanels, setOpenPanels] = useState<Set<FooterPanel>>(new Set());
 
   const togglePanel = (panel: FooterPanel) => {
     setOpenPanels((current) => {
+      // Copy the Set so React receives a new state reference on every toggle.
       const next = new Set(current);
       if (next.has(panel)) {
         next.delete(panel);
@@ -64,7 +69,12 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#202020] px-3.5 pt-12 pb-9 text-[#f5f2ec] sm:px-7 lg:px-8 xl:px-12">
+    <footer
+      id="site-footer"
+      className={`z-70 bg-[#202020] px-3.5 pt-12 text-[#f5f2ec] sm:px-7 lg:px-8 xl:px-12 ${
+        reserveSummarySpace ? "pb-36 md:pb-24" : "pb-9"
+      }`}
+    >
       <div className="grid gap-7 md:grid-cols-2 md:gap-x-16 md:gap-y-20 lg:grid-cols-4 lg:gap-6 xl:gap-8">
         <div>
           <h2 className="text-base font-bold lg:text-base">SOCIALS</h2>
