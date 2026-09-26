@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 
 const resources = [
-  { label: "FAQ", href: "/faq" },
-  { label: "Shipping Policy", href: "/shipping-policy" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Refund Policy", href: "/refund-policy" },
-  { label: "Terms Of Service", href: "/terms-of-service" },
+  { label: "FAQ", href: "/under-development" },
+  { label: "Shipping Policy", href: "/under-development" },
+  { label: "Privacy Policy", href: "/under-development" },
+  { label: "Refund Policy", href: "/under-development" },
+  { label: "Terms Of Service", href: "/under-development" },
 ];
 
 const InstagramIcon = () => (
@@ -53,11 +54,11 @@ type FooterProps = {
 };
 
 const Footer = ({ reserveSummarySpace = false }: FooterProps) => {
+  const pathname = usePathname();
   const [openPanels, setOpenPanels] = useState<Set<FooterPanel>>(new Set());
 
   const togglePanel = (panel: FooterPanel) => {
     setOpenPanels((current) => {
-      // Copy the Set so React receives a new state reference on every toggle.
       const next = new Set(current);
       if (next.has(panel)) {
         next.delete(panel);
@@ -67,6 +68,11 @@ const Footer = ({ reserveSummarySpace = false }: FooterProps) => {
       return next;
     });
   };
+
+  const supportLinks = [
+    { label: "About Us", href: "/about" },
+    { label: "Contact Us", href: "/under-development" },
+  ];
 
   return (
     <footer
@@ -91,14 +97,28 @@ const Footer = ({ reserveSummarySpace = false }: FooterProps) => {
           </div>
         </div>
 
-        <div className="">
+        <div>
           <h2 className="text-base font-bold lg:text-base">RESOURCES</h2>
-          <nav className="mt-2 flex flex-col gap-4.5 text-sm lg:mt-5 lg:gap-6 lg:text-base">
-            {resources.map((resource) => (
-              <Link key={resource.label} href={resource.href}>
-                {resource.label}
-              </Link>
-            ))}
+          <nav className="mt-2 flex flex-col items-start gap-4.5 text-sm lg:mt-5 lg:gap-6 lg:text-base">
+            {resources.map((resource) => {
+              const isActive = pathname === resource.href;
+              return (
+                <Link
+                  key={resource.label}
+                  href={resource.href}
+                  className="group relative inline-block"
+                >
+                  {resource.label}
+                  <span
+                    className={`absolute -bottom-0.5 left-0 h-[0.5px] w-full origin-left bg-[#f5f2ec] transition-all duration-300 ease-out ${
+                      isActive
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
@@ -120,14 +140,31 @@ const Footer = ({ reserveSummarySpace = false }: FooterProps) => {
               />
             </button>
             <div
-              className={`flex flex-col gap-4.5 overflow-hidden text-sm transition-[max-height] duration-300 md:mt-5 md:max-h-none md:gap-6 md:text-base lg:mt-5 lg:gap-6 ${
+              className={`flex flex-col items-start gap-4.5 overflow-hidden text-sm transition-[max-height] duration-300 md:mt-5 md:max-h-none md:gap-6 md:text-base lg:mt-5 lg:gap-6 ${
                 openPanels.has("support")
                   ? "max-h-40 pb-5 md:max-h-none md:pb-0"
                   : "max-h-0 md:max-h-none"
               }`}
             >
-              <Link href="/about">About Us</Link>
-              <Link href="/contact">Contact Us</Link>
+              {supportLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="group relative inline-block text-left"
+                  >
+                    {link.label}
+                    <span
+                      className={`absolute -bottom-0.5 left-0 h-[0.5px] w-full origin-left bg-[#f5f2ec] transition-all duration-300 ease-out ${
+                        isActive
+                          ? "scale-x-100"
+                          : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                    />
+                  </Link>
+                );
+              })}
             </div>
           </div>
 

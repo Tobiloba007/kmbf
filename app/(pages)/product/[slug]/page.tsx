@@ -18,6 +18,8 @@ import ProductSummaryBar from "../ProductSummaryBar";
 import FAQ from "@/app/components/FAQ";
 import ShopBenefits from "@/app/components/ShopBenefits";
 import Footer from "@/app/components/Footer";
+import { useCartStore } from "@/app/store/useCartStore";
+import { useRouter } from "next/navigation";
 
 const formatPrice = (price: number) =>
   new Intl.NumberFormat("en-NG", {
@@ -41,12 +43,29 @@ const ProductPage = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
   const [returnsOpen, setReturnsOpen] = useState(false);
 
+
+  const addItem = useCartStore((state) => state.addItem);
+
+  const router = useRouter();
+  
+  const handleAddToCart = (product: Product) => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      size: selectedSize,
+      price: product.price,
+      image: product.image,
+      quantity: quantity,
+    });
+    router.push("/cart");
+  };
+
   return (
     <main className="min-h-screen bg-[#f5f2ec] text-[#222]">
       <Navbar dark />
       <div
         id="product-details"
-        className="mx-auto grid max-w-360 gap-6 px-3.5 pb-12 pt-20 sm:gap-8 sm:px-7 sm:pt-16 md:grid-cols-2 md:gap-10 md:px-8 md:pt-24 lg:gap-16 lg:px-12 lg:pt-28 xl:pt-27 xl:gap-28"
+        className="mx-auto grid max-w-360 gap-6 px-3.5 pb-12 pt-8 sm:gap-8 sm:px-7 sm:pt-9 md:grid-cols-2 md:gap-10 md:px-8 md:pt-9 lg:gap-16 lg:px-12 lg:pt-10 xl:pt-10 xl:gap-28"
       >
         <section>
           <div className="group relative aspect-square overflow-hidden bg-[#efeae1]">
@@ -179,15 +198,16 @@ const ProductPage = ({ product }: { product: Product }) => {
               </button>
             </div>
             <button
+              onClick={() => handleAddToCart(product)}
               type="button"
-              className="h-12 bg-[#6889ba] text-xs font-medium rounded-sm text-white lg:h-13 md:text-xs"
+              className="h-12 bg-[#6889ba] text-xs font-medium rounded-sm text-white hover:bg-[#6889ba]/90 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] lg:h-13 md:text-xs"
             >
               ADD TO CART
             </button>
           </div>
           <button
             type="button"
-            className="mt-3 h-12 w-full bg-[#222] text-[13px] font-medium rounded-sm text-white md:mt-3 lg:h-13 md:text-xs"
+            className="mt-3 h-12 w-full bg-[#222] text-[13px] font-medium rounded-sm text-white hover:bg-[#222]/90 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] md:mt-3 lg:h-13 md:text-xs"
           >
             BUY IT NOW
           </button>

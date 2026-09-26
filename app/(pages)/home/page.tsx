@@ -14,13 +14,13 @@ const HomePage = () => {
         title="BEST SELLERS"
         showButton
         products={BEST_SELLERS}
-        href="/shop"
+        href="/collections/best-sellers"
       />
       <Category
         title="LATEST"
         showButton
         products={LATEST}
-        href="/shop"
+        href="/collections/latest"
         showViewMore
       />
       <VideoSection />
@@ -28,7 +28,7 @@ const HomePage = () => {
         title="AMBITION"
         showButton
         products={AMBITION}
-        href="/shop"
+        href="/collections/ambition"
         showViewMore
       />
       <div className="w-full h-full bg-[#f5f2ec] px-3.5 pt-4 sm:px-7 md:pt-0 md:grid md:grid-cols-2 md:gap-x-5 md:items-stretch lg:gap-x-8 lg:px-12 xl:gap-x-8">
@@ -45,7 +45,7 @@ const HomePage = () => {
               ZERO TO THE WORLD
             </p>
             <Link
-              href="/shop"
+              href="/collections/all"
               className="mt-11 border border-white px-5 py-4 text-[15px] rounded leading-none transition-colors md:py-5 md:px-6 hover:bg-white hover:text-black"
             >
               VIEW
@@ -53,7 +53,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="order-1 md:order-1 w-full h-full">
-          <Category products={BEST_SELLERS} href="/shop" flush />
+          <Category products={BEST_SELLERS} href="/collections/best-sellers" flush />
         </div>
       </div>
       <Footer />

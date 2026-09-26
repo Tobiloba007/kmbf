@@ -16,7 +16,7 @@ const Product = ({ product }: { product: ProductType }) => {
   const backImage = product.backImage ?? getFallbackBackImage(product.image);
 
   return (
-    <Link href={`/products/${product.slug}`} className="group block">
+    <Link href={`/product/${product.slug}`} className="group block">
       <div className="relative aspect-square w-full overflow-hidden bg-[#efeae1]">
         <Image
           src={product.image}
