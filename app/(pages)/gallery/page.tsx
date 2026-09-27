@@ -31,7 +31,7 @@ const LOOKBOOK_IMAGES = Array.from({ length: 30 }, (_, index) => ({
     "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1000&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1000&auto=format&fit=crop",
   ][index % 10],
-  alt: `ZTTW Lookbook Item ${index + 1}`,
+  alt: `KMBF Lookbook Item ${index + 1}`,
 }));
 
 // Utility helper to chunk array into blocks of 20

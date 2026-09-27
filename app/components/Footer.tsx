@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 
@@ -56,6 +57,13 @@ type FooterProps = {
 const Footer = ({ reserveSummarySpace = false }: FooterProps) => {
   const pathname = usePathname();
   const [openPanels, setOpenPanels] = useState<Set<FooterPanel>>(new Set());
+  const [currentYear, setCurrentYear] = useState<number>(
+    new Date().getFullYear(),
+  );
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   const togglePanel = (panel: FooterPanel) => {
     setOpenPanels((current) => {
@@ -206,7 +214,7 @@ const Footer = ({ reserveSummarySpace = false }: FooterProps) => {
       </div>
 
       <div className="mt-8 flex flex-col gap-8 lg:mt-20 lg:flex-row lg:items-end lg:justify-between lg:gap-6">
-        <p className="text-sm lg:ml-auto">© ZTTW 2026</p>
+        <p className="text-sm lg:ml-auto">© KMBF {currentYear}</p>
       </div>
     </footer>
   );
