@@ -15,7 +15,7 @@ const Page = () => {
           <div className="relative aspect-4/5 w-full md:aspect-5/4 lg:aspect-5/4">
             <Image
               src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop"
-              alt="ZTTW Beach Editorial"
+              alt="KMBF Beach Editorial"
               fill
               priority
               className="object-cover"
@@ -30,8 +30,8 @@ const Page = () => {
               WORLD
             </h1>
             <p className="mt-6 text-sm sm:text-sm lg:text-[15px] leading-relaxed tracking-wide text-black max-w-xl xl:text-base">
-              ZTTW Is A Streetwear Brand Inspired By The Ethos &quot;The World
-              Is Yours.&quot; Based In Lagos Nigeria, ZTTW Redefines Streetwear
+              KMBF Is A Streetwear Brand Inspired By The Ethos &quot;The World
+              Is Yours.&quot; Based In Lagos Nigeria, KMBF Redefines Streetwear
               With A Refined, High-Quality Approach, Crafting Timeless Pieces
               That Exude Confidence And Inspire Individuality.
             </p>
@@ -53,7 +53,7 @@ const Page = () => {
           <div className="order-1 md:order-2 relative aspect-3/2 w-full md:aspect-3/2 lg:aspect-3/2">
             <Image
               src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop"
-              alt="ZTTW Community"
+              alt="KMBF Community"
               fill
               className="object-cover"
             />

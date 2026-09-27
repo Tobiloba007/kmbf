@@ -75,11 +75,11 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
   SWEATSHIRTS: [
     {
       id: "sweatshirt-forest-drift",
-      name: "Zttw Forest Drift Longsleeve",
+      name: "KMBF Forest Drift Longsleeve",
       price: 375000,
       image: unsplash("photo-1520975916090-3105956dac38"),
       backImage: unsplashBack("photo-1520975916090-3105956dac38"),
-      slug: "zttw-forest-drift-longsleeve",
+      slug: "KMBF-forest-drift-longsleeve",
     },
   ],
   SHORTS: [
