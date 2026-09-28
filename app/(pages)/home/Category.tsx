@@ -1,34 +1,47 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import Product from "@/app/components/Product";
+import Product, { type SanityProduct } from "@/app/components/Product";
 import type { Product as ProductType } from "@/library/constants";
+
+type FlexibleProduct = ProductType | (SanityProduct & { id?: string | number });
 
 type CategoryProps = {
   title?: string;
-  products: ProductType[];
+  products?: FlexibleProduct[];
   href: string;
-  showViewMore?: boolean;
   showButton?: boolean;
   flush?: boolean;
+  showViewMore?: boolean;
+  pageSize?: number; // Defaults to 8 items per category block
 };
 
 const Category = ({
   title,
-  products,
+  products = [],
   href,
-  showViewMore,
   showButton,
   flush,
+  showViewMore,
+  pageSize = 3,
 }: CategoryProps) => {
+  const safeProducts = Array.isArray(products) ? products : [];
+
+  // Display up to pageSize items on the category grid preview
+  const visibleProducts = safeProducts.slice(0, pageSize);
+
+  // Show "View More" link if explicitly requested OR if total products exceed pageSize
+  const shouldShowViewMore =
+    showViewMore !== undefined ? showViewMore : safeProducts.length > pageSize;
+
   return (
     <section
       className={`w-full bg-[#f5f2ec] py-12 ${
-        // Flush removes the outer padding for the split featured section.
         flush ? "px-0" : "px-3.5 sm:px-7 lg:px-12"
       }`}
     >
       {(title || showButton) && (
-        <div className="mb-5 flex flex-col items-start justify-between gap-3.5 w-full text-primary md:flex-row md:items-center lg:mb-7 xl:mb-9">
+        <div className="mb-5 flex w-full flex-col items-start justify-between gap-3.5 text-primary md:flex-row md:items-center lg:mb-7 xl:mb-9">
           {title && (
             <h2 className="text-xl font-bold tracking-wide">{title}</h2>
           )}
@@ -51,6 +64,7 @@ const Category = ({
         </div>
       )}
 
+      {/* Product Grid */}
       <div
         className={`grid grid-cols-2 gap-x-4 gap-y-8 md:gap-y-8 ${
           flush
@@ -58,12 +72,14 @@ const Category = ({
             : "lg:grid-cols-4 lg:gap-7 lg:gap-y-11 xl:gap-8 xl:gap-y-11"
         }`}
       >
-        {products.map((product) => (
-          <Product key={product.id} product={product} />
-        ))}
+        {visibleProducts.map((product, index) => {
+          const key = (product as any)._id || (product as any).id || index;
+          return <Product key={key} product={product as any} />;
+        })}
       </div>
 
-      {showViewMore && (
+      {/* View More Navigation Link */}
+      {shouldShowViewMore && (
         <div className="mt-11 flex justify-center lg:mt-12">
           <Link
             href={href}

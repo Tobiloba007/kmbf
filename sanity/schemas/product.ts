@@ -29,7 +29,7 @@ export const product = defineType({
     }),
     defineField({
       name: "compareAtPrice",
-      title: "Compare At Price (Discount Original Price)",
+      title: "Compare At Price (Original Price)",
       type: "number",
       description: "Original price before discount (leave blank if not on sale)",
     }),
@@ -52,35 +52,99 @@ export const product = defineType({
       ],
       validation: (Rule) => Rule.required().min(1),
     }),
+    // defineField({
+    //   name: "category",
+    //   title: "Category",
+    //   type: "reference",
+    //   to: [{ type: "category" }],
+    // }),
     defineField({
-      name: "category",
-      title: "Category",
+  name: "categories",
+  title: "Categories",
+  type: "array",
+  description: "Select one or more categories for this product (e.g. Shirts, Best Sellers)",
+  of: [
+    {
       type: "reference",
       to: [{ type: "category" }],
-    }),
+    },
+  ],
+}),
     defineField({
-      name: "description",
-      title: "Description",
+      name: "collections",
+      title: "Collections / Drops",
       type: "array",
-      of: [{ type: "block" }],
+      description: "Select one or more collections this product belongs to (e.g. Essentials, Summer Drop)",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "collection" }],
+        },
+      ],
     }),
     defineField({
+      name: "shortDescription",
+      title: "Short Description",
+      type: "text",
+      rows: 3,
+      description: "Brief summary rendered directly under the product title on the detail page.",
+    }),
+defineField({
       name: "variants",
       title: "Product Variants (Sizes & SKUs)",
       type: "array",
-      of: [{ type: "productVariant" }],
-    }),
-    defineField({
-      name: "isFeatured",
-      title: "Featured Product",
-      type: "boolean",
-      initialValue: false,
-    }),
-    defineField({
-      name: "isNewArrival",
-      title: "New Arrival",
-      type: "boolean",
-      initialValue: true,
+      of: [
+        {
+          type: "object",
+          name: "variant",
+          title: "Variant",
+          fields: [
+            defineField({
+              name: "size",
+              title: "Size",
+              type: "string",
+              options: {
+                list: [
+                  { title: "XS", value: "XS" },
+                  { title: "S", value: "S" },
+                  { title: "M", value: "M" },
+                  { title: "L", value: "L" },
+                  { title: "XL", value: "XL" },
+                  { title: "2XL", value: "2XL" },
+                  { title: "3XL", value: "3XL" },
+                  { title: "One Size", value: "OS" },
+                ],
+                layout: "dropdown",
+              },
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "sku",
+              title: "SKU / Stock Code",
+              type: "string",
+            }),
+            defineField({
+              name: "stock",
+              title: "Stock Quantity",
+              type: "number",
+              initialValue: 0,
+              validation: (Rule) => Rule.required().min(0),
+            }),
+          ],
+          preview: {
+            select: {
+              title: "size",
+              subtitle: "stock",
+            },
+            prepare({ title, subtitle }) {
+              return {
+                title: `Size: ${title}`,
+                subtitle: `In Stock: ${subtitle ?? 0}`,
+              };
+            },
+          },
+        },
+      ],
     }),
   ],
   preview: {
