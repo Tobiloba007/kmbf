@@ -80,6 +80,7 @@ function ProductDetailContent({ product }: { product: SanityProduct }) {
       price: product.price,
       image: images[0],
       quantity: quantity,
+      _id: undefined
     });
     router.push("/cart");
   };
