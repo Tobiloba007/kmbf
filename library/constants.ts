@@ -36,6 +36,8 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
       image: unsplash("photo-1521572163474-6864f9cf17ab"),
       backImage: unsplashBack("photo-1521572163474-6864f9cf17ab"),
       slug: "hero-armless-tee-black",
+      images: [],
+      _id: ""
     },
     {
       id: "shirt-hero-armless-white",
@@ -44,6 +46,8 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
       image: unsplash("photo-1521572163474-6864f9cf17ab"),
       backImage: unsplashBack("photo-1521572163474-6864f9cf17ab"),
       slug: "hero-armless-tee-white",
+      images: [],
+      _id: ""
     },
   ],
   JACKETS: [
@@ -54,6 +58,8 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
       image: unsplash("photo-1551028719-00167b16eac5"),
       backImage: unsplashBack("photo-1551028719-00167b16eac5"),
       slug: "27w-varsity-jacket-black",
+      images: [],
+      _id: ""
     },
     {
       id: "jacket-27w-green",
@@ -62,6 +68,8 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
       image: unsplash("photo-1551028719-00167b16eac5"),
       backImage: unsplashBack("photo-1551028719-00167b16eac5"),
       slug: "27w-varsity-jacket-green",
+      images: [],
+      _id: ""
     },
   ],
   HOODIES: [
@@ -72,6 +80,8 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
       image: unsplash("photo-1556821840-3a63f95609a7"),
       backImage: unsplashBack("photo-1556821840-3a63f95609a7"),
       slug: "core-hoodie-black",
+      images: [],
+      _id: ""
     },
   ],
   SWEATSHIRTS: [
@@ -82,6 +92,8 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
       image: unsplash("photo-1520975916090-3105956dac38"),
       backImage: unsplashBack("photo-1520975916090-3105956dac38"),
       slug: "KMBF-forest-drift-longsleeve",
+      images: [],
+      _id: ""
     },
   ],
   SHORTS: [
@@ -92,6 +104,8 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
       image: unsplash("photo-1591195853828-11db59a44f6b"),
       backImage: unsplashBack("photo-1591195853828-11db59a44f6b"),
       slug: "denim-shorts-black",
+      images: [],
+      _id: ""
     },
   ],
   PANTS: [
@@ -102,6 +116,8 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
       image: unsplash("photo-1594633312681-425c7b97ccd1"),
       backImage: unsplashBack("photo-1594633312681-425c7b97ccd1"),
       slug: "denim-pants-black",
+      images: [],
+      _id: ""
     },
   ],
   HATS: [
@@ -112,6 +128,8 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
       image: unsplash("photo-1521369909029-2afed882baee"),
       backImage: unsplashBack("photo-1521369909029-2afed882baee"),
       slug: "signature-cap",
+      images: [],
+      _id: ""
     },
   ],
   SETS: [
@@ -122,6 +140,8 @@ export const PRODUCTS_BY_CATEGORY: Record<string, Product[]> = {
       image: unsplash("photo-1483985988355-763728e1935b"),
       backImage: unsplashBack("photo-1483985988355-763728e1935b"),
       slug: "zttw-patchwork-polo",
+      images: [],
+      _id: ""
     },
   ],
 };
@@ -139,6 +159,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1521572163474-6864f9cf17ab"),
       backImage: unsplashBack("photo-1521572163474-6864f9cf17ab"),
       slug: "hero-armless-tee-black",
+      images: [],
+      _id: ""
     },
     {
       id: "best-hero-armless-white",
@@ -147,6 +169,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1521572163474-6864f9cf17ab"),
       backImage: unsplashBack("photo-1521572163474-6864f9cf17ab"),
       slug: "hero-armless-tee-white",
+      images: [],
+      _id: ""
     },
     {
       id: "best-forest-drift-longsleeve",
@@ -155,6 +179,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1520975916090-3105956dac38"),
       backImage: unsplashBack("photo-1520975916090-3105956dac38"),
       slug: "zttw-forest-drift-longsleeve",
+      images: [],
+      _id: ""
     },
     {
       id: "best-patchwork-polo",
@@ -163,6 +189,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1483985988355-763728e1935b"),
       backImage: unsplashBack("photo-1483985988355-763728e1935b"),
       slug: "zttw-patchwork-polo",
+      images: [],
+      _id: ""
     },
   ],
   LATEST: [
@@ -173,6 +201,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1551028719-00167b16eac5"),
       backImage: unsplashBack("photo-1551028719-00167b16eac5"),
       slug: "27w-varsity-jacket-black",
+      images: [],
+      _id: ""
     },
     {
       id: "latest-27w-varsity-green",
@@ -181,6 +211,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1551028719-00167b16eac5"),
       backImage: unsplashBack("photo-1551028719-00167b16eac5"),
       slug: "27w-varsity-jacket-green",
+      images: [],
+      _id: ""
     },
     {
       id: "latest-denim-overshirt-black",
@@ -189,6 +221,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1594633312681-425c7b97ccd1"),
       backImage: unsplashBack("photo-1594633312681-425c7b97ccd1"),
       slug: "denim-overshirt-black",
+      images: [],
+      _id: ""
     },
     {
       id: "latest-denim-pants-black",
@@ -197,6 +231,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1594633312681-425c7b97ccd1"),
       backImage: unsplashBack("photo-1594633312681-425c7b97ccd1"),
       slug: "denim-pants-black",
+      images: [],
+      _id: ""
     },
     {
       id: "latest-core-hoodie-black",
@@ -205,6 +241,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1556821840-3a63f95609a7"),
       backImage: unsplashBack("photo-1556821840-3a63f95609a7"),
       slug: "core-hoodie-black",
+      images: [],
+      _id: ""
     },
     {
       id: "latest-signature-cap",
@@ -213,6 +251,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1521369909029-2afed882baee"),
       backImage: unsplashBack("photo-1521369909029-2afed882baee"),
       slug: "signature-cap",
+      images: [],
+      _id: ""
     },
     {
       id: "latest-denim-shorts-black",
@@ -221,6 +261,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1591195853828-11db59a44f6b"),
       backImage: unsplashBack("photo-1591195853828-11db59a44f6b"),
       slug: "denim-shorts-black",
+      images: [],
+      _id: ""
     },
     {
       id: "latest-patchwork-polo",
@@ -229,6 +271,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1483985988355-763728e1935b"),
       backImage: unsplashBack("photo-1483985988355-763728e1935b"),
       slug: "zttw-patchwork-polo",
+      images: [],
+      _id: ""
     },
   ],
   AMBITION: [
@@ -239,6 +283,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1521572163474-6864f9cf17ab"),
       backImage: unsplashBack("photo-1521572163474-6864f9cf17ab"),
       slug: "ambitions-armless-tee-black",
+      images: [],
+      _id: ""
     },
     {
       id: "ambition-armless-tee-white",
@@ -247,6 +293,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1521572163474-6864f9cf17ab"),
       backImage: unsplashBack("photo-1521572163474-6864f9cf17ab"),
       slug: "ambitions-armless-tee-white",
+      images: [],
+      _id: ""
     },
     {
       id: "ambition-hoodie-black",
@@ -255,6 +303,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1556821840-3a63f95609a7"),
       backImage: unsplashBack("photo-1556821840-3a63f95609a7"),
       slug: "ambitions-hoodie-black",
+      images: [],
+      _id: ""
     },
     {
       id: "ambition-forest-drift-longsleeve",
@@ -263,6 +313,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1520975916090-3105956dac38"),
       backImage: unsplashBack("photo-1520975916090-3105956dac38"),
       slug: "ambitions-forest-drift-longsleeve",
+      images: [],
+      _id: ""
     },
     {
       id: "ambition-denim-shorts-black",
@@ -271,6 +323,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1591195853828-11db59a44f6b"),
       backImage: unsplashBack("photo-1591195853828-11db59a44f6b"),
       slug: "ambitions-denim-shorts-black",
+      images: [],
+      _id: ""
     },
     {
       id: "ambition-denim-pants-black",
@@ -279,6 +333,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1594633312681-425c7b97ccd1"),
       backImage: unsplashBack("photo-1594633312681-425c7b97ccd1"),
       slug: "ambitions-denim-pants-black",
+      images: [],
+      _id: ""
     },
     {
       id: "ambition-27w-varsity-black",
@@ -287,6 +343,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1551028719-00167b16eac5"),
       backImage: unsplashBack("photo-1551028719-00167b16eac5"),
       slug: "27w-varsity-jacket-black-ambition",
+      images: [],
+      _id: ""
     },
     {
       id: "ambition-signature-cap",
@@ -295,6 +353,8 @@ export const COLLECTIONS: Record<string, Product[]> = {
       image: unsplash("photo-1521369909029-2afed882baee"),
       backImage: unsplashBack("photo-1521369909029-2afed882baee"),
       slug: "ambitions-signature-cap",
+      images: [],
+      _id: ""
     },
   ],
 };
