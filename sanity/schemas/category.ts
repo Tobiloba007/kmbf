@@ -22,9 +22,10 @@ export const category = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "description",
-      title: "Description",
-      type: "text",
-    }),
+          name: "products",
+          title: "Products in Category",
+          type: "array",
+          of: [{ type: "reference", to: [{ type: "product" }] }],
+        }),
   ],
 });

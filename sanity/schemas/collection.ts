@@ -21,12 +21,12 @@ export const collection = defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: "bannerImage",
-      title: "Hero Banner Image",
-      type: "image",
-      options: { hotspot: true },
-    }),
+    // defineField({
+    //   name: "bannerImage",
+    //   title: "Hero Banner Image",
+    //   type: "image",
+    //   options: { hotspot: true },
+    // }),
     defineField({
       name: "products",
       title: "Products in Collection",
