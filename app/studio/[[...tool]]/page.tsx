@@ -11,6 +11,7 @@ import { product } from "@/sanity/schemas/product";
 import { category } from "@/sanity/schemas/category";
 import { collection } from "@/sanity/schemas/collection";
 import { productVariant } from "@/sanity/schemas/objects/productVariant";
+import { order } from "@/sanity/schemas/order";
 
 const config = defineConfig({
   basePath: "/studio",
@@ -20,7 +21,7 @@ const config = defineConfig({
   title: "KMBF Studio",
   plugins: [structureTool(), visionTool()],
   schema: {
-    types: [product, category, collection, productVariant],
+    types: [product, category, collection, productVariant, order],
   },
 });
 
