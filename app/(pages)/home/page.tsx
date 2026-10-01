@@ -5,8 +5,11 @@ import VideoSection from "./VideoSection";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/app/components/Footer";
-import { client } from "@/sanity/lib/client";
-import { ALL_CATEGORIES_WITH_PRODUCTS_QUERY } from "@/sanity/lib/queries";
+import { contentClient } from "@/sanity/lib/client";
+import {
+  ALL_CATEGORIES_WITH_PRODUCTS_QUERY,
+  HOME_PAGE_CONTENT_QUERY,
+} from "@/sanity/lib/queries";
 
 interface SanityCategoryData {
   _id: string;
@@ -17,10 +20,22 @@ interface SanityCategoryData {
   products?: any[];
 }
 
+export const dynamic = "force-dynamic";
+
 const HomePage = async () => {
-  const categories: SanityCategoryData[] = await client.fetch(
-    ALL_CATEGORIES_WITH_PRODUCTS_QUERY,
-  );
+  const [categories, homePageContent] = await Promise.all([
+    contentClient.fetch<SanityCategoryData[]>(
+      ALL_CATEGORIES_WITH_PRODUCTS_QUERY,
+    ),
+    contentClient.fetch<{
+      heroImages?: { url?: string }[];
+      videoUrl?: string;
+    } | null>(HOME_PAGE_CONTENT_QUERY),
+  ]);
+
+  const heroImages = homePageContent?.heroImages
+    ?.map((image) => image.url)
+    .filter((url): url is string => Boolean(url));
 
   // Filter out categories that don't have products
   const activeCategories =
@@ -32,7 +47,7 @@ const HomePage = async () => {
 
   return (
     <div className="flex w-full flex-col">
-      <HomeIntro />
+      <HomeIntro images={heroImages?.length === 2 ? heroImages : undefined} />
 
       {/* Render active categories with automatic 8-item chunking */}
       {activeCategories.map((category, index) => {
@@ -47,13 +62,23 @@ const HomePage = async () => {
               href={`/collections/${category.slug}`}
               pageSize={8}
             />
-            {isSecondCategory && <VideoSection />}
+            {isSecondCategory && (
+              <VideoSection
+                src={homePageContent?.videoUrl}
+                poster={heroImages?.[0]}
+              />
+            )}
           </div>
         );
       })}
 
       {/* Render VideoSection if fewer than 2 active categories exist */}
-      {activeCategories.length < 2 && <VideoSection />}
+      {activeCategories.length < 2 && (
+        <VideoSection
+          src={homePageContent?.videoUrl}
+          poster={heroImages?.[0]}
+        />
+      )}
 
       {/* Dynamic Split Banner Section */}
       {featuredCategory && (

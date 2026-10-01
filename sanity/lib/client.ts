@@ -15,6 +15,8 @@ export const client = createClient({
   useCdn: true,
 });
 
+export const contentClient = client.withConfig({ useCdn: false });
+
 const imageBuilder = createImageUrlBuilder(client);
 
 export function urlFor(source: any) {

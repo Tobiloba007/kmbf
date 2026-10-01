@@ -15,21 +15,13 @@ import {
   Minimize2,
   LayoutGrid,
 } from "lucide-react";
+import { contentClient } from "@/sanity/lib/client";
+import { GALLERY_PAGE_CONTENT_QUERY } from "@/sanity/lib/queries";
 
-// Mock Lookbook with 30 Images
-const LOOKBOOK_IMAGES = Array.from({ length: 30 }, (_, index) => ({
+const FALLBACK_LOOKBOOK_IMAGES = Array.from({ length: 1 }, (_, index) => ({
   id: index + 1,
   src: [
     "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1000&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1000&auto=format&fit=crop",
   ][index % 10],
   alt: `KMBF Lookbook Item ${index + 1}`,
 }));
@@ -45,7 +37,23 @@ const chunkArray = <T,>(array: T[], size: number): T[][] => {
 
 const SLIDESHOW_INTERVAL = 3000; // 3 seconds per image
 
+type LookbookImage = {
+  id: number;
+  key?: string;
+  src: string;
+  alt: string;
+};
+
+type GalleryImage = {
+  _key: string;
+  alt?: string;
+  url?: string;
+};
+
 const Page = () => {
+  const [lookbookImages, setLookbookImages] = useState<LookbookImage[]>(
+    FALLBACK_LOOKBOOK_IMAGES,
+  );
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -59,11 +67,35 @@ const Page = () => {
   const modalRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    let isMounted = true;
+    contentClient
+      .fetch<{ images?: GalleryImage[] } | null>(GALLERY_PAGE_CONTENT_QUERY)
+      .then((data) => {
+        const images = data?.images
+          ?.filter((image): image is GalleryImage & { url: string } =>
+            Boolean(image.url),
+          )
+          .map((image, index) => ({
+            id: index + 1,
+            key: image._key,
+            src: image.url,
+            alt: image.alt || `KMBF Lookbook Item ${index + 1}`,
+          }));
+        if (isMounted && images?.length) setLookbookImages(images);
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const selectedImage =
-    selectedIndex !== null ? LOOKBOOK_IMAGES[selectedIndex] : null;
+    selectedIndex !== null ? lookbookImages[selectedIndex] : null;
 
   // Split images into blocks of 20 for lg/xl screens
-  const imageBlocks = chunkArray(LOOKBOOK_IMAGES, 20);
+  const imageBlocks = chunkArray(lookbookImages, 20);
 
   // Manual image navigation
   const handlePrev = (e?: React.MouseEvent) => {
@@ -71,7 +103,7 @@ const Page = () => {
     setProgress(0);
     if (selectedIndex !== null) {
       setSelectedIndex((prev) =>
-        prev === 0 ? LOOKBOOK_IMAGES.length - 1 : (prev as number) - 1,
+        prev === 0 ? lookbookImages.length - 1 : (prev as number) - 1,
       );
     }
   };
@@ -81,7 +113,7 @@ const Page = () => {
     setProgress(0);
     if (selectedIndex !== null) {
       setSelectedIndex((prev) =>
-        prev === LOOKBOOK_IMAGES.length - 1 ? 0 : (prev as number) + 1,
+        prev === lookbookImages.length - 1 ? 0 : (prev as number) + 1,
       );
     }
   };
@@ -179,7 +211,7 @@ const Page = () => {
 
       interval = setInterval(() => {
         setSelectedIndex((prev) =>
-          prev === LOOKBOOK_IMAGES.length - 1 ? 0 : (prev as number) + 1,
+          prev === lookbookImages.length - 1 ? 0 : (prev as number) + 1,
         );
         setProgress(0);
       }, SLIDESHOW_INTERVAL);
@@ -191,7 +223,7 @@ const Page = () => {
       clearInterval(interval);
       clearInterval(progressInterval);
     };
-  }, [isPlaying, selectedIndex]);
+  }, [isPlaying, selectedIndex, lookbookImages.length]);
 
   const closeModal = () => {
     if (document.fullscreenElement) {
@@ -207,7 +239,7 @@ const Page = () => {
       <Navbar dark />
 
       {/* Main Grid Section */}
-      <section className="px-3.5 pt-8 pb-12 sm:px-7 md:pt-9 lg:pt-10 lg:px-12 max-w-360 w-full mx-auto flex-grow">
+      <section className="px-3.5 pt-8 pb-12 sm:px-7 md:pt-9 lg:pt-10 lg:px-12 max-w-360 w-full mx-auto grow">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#111] mb-8 sm:mb-10">
           LOOKBOOK
         </h1>
@@ -224,13 +256,16 @@ const Page = () => {
 
                 return (
                   <button
-                    key={img.id}
+                    key={img.key ?? img.id}
                     type="button"
                     onClick={() => {
                       setSelectedIndex(globalIndex);
                       setIsPlaying(false);
                     }}
-                    className="group relative aspect-[3/4] w-full overflow-hidden bg-gray-200 focus:outline-none cursor-pointer"
+                    className="gallery-rise-in group relative aspect-3/4 w-full overflow-hidden bg-gray-200 focus:outline-none cursor-pointer"
+                    style={{
+                      animationDelay: `${Math.min(globalIndex, 14) * 25}ms`,
+                    }}
                   >
                     <Image
                       src={img.src}
@@ -251,7 +286,7 @@ const Page = () => {
       {selectedImage && (
         <div
           ref={modalRef}
-          className="fixed inset-0 z-50 flex flex-col justify-between bg-black/85 backdrop-blur-md pt-0 pb-2 select-none transition-all duration-300 ease-out"
+          className="gallery-lightbox-in fixed inset-0 z-50 flex flex-col justify-between bg-black/85 backdrop-blur-md pt-0 pb-2 select-none transition-all duration-300 ease-out"
           onClick={closeModal}
         >
           {/* Top Full-Width Edge Progress Bar */}
@@ -346,7 +381,7 @@ const Page = () => {
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
-            <div className="relative h-full max-h-[50vh] sm:max-h-[68vh] aspect-[3/4] border-2 border-white shadow-2xl transition-all duration-500 ease-out transform scale-100">
+            <div className="gallery-image-in relative h-full max-h-[50vh] sm:max-h-[68vh] aspect-3/4 border-2 border-white shadow-2xl transition-all duration-500 ease-out transform scale-100">
               <Image
                 key={selectedImage.id}
                 src={selectedImage.src}
@@ -380,15 +415,15 @@ const Page = () => {
               ref={stripRef}
               className="w-full overflow-x-auto no-scrollbar flex items-center gap-2.5 px-2 scroll-smooth"
             >
-              {LOOKBOOK_IMAGES.map((img, idx) => (
+              {lookbookImages.map((img, idx) => (
                 <button
-                  key={img.id}
+                  key={img.key ?? img.id}
                   type="button"
                   onClick={() => {
                     setSelectedIndex(idx);
                     setProgress(0);
                   }}
-                  className={`relative shrink-0 aspect-[3/4] h-20 sm:h-24 lg:h-28 transition-all duration-300 ease-out border ${
+                  className={`relative shrink-0 aspect-3/4 h-20 sm:h-24 lg:h-28 transition-all duration-300 ease-out border ${
                     idx === selectedIndex
                       ? "border-white scale-105 opacity-100 shadow-md"
                       : "border-transparent opacity-40 hover:opacity-80 hover:scale-100"

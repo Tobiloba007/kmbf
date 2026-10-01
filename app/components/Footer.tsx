@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
+import { contentClient } from "@/sanity/lib/client";
+import { SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 
 const resources = [
   { label: "FAQ", href: "/under-development" },
@@ -54,15 +56,46 @@ type FooterProps = {
   reserveSummarySpace?: boolean;
 };
 
+type SiteSettings = {
+  storeAddress?: string;
+  instagramUrl?: string;
+  xUrl?: string;
+  tiktokUrl?: string;
+};
+
+const FALLBACK_SETTINGS = {
+  storeAddress:
+    "........",
+  instagramUrl: "https://instagram.com",
+  xUrl: "https://x.com",
+  tiktokUrl: "https://tiktok.com",
+};
+
 const Footer = ({ reserveSummarySpace = false }: FooterProps) => {
   const pathname = usePathname();
   const [openPanels, setOpenPanels] = useState<Set<FooterPanel>>(new Set());
   const [currentYear, setCurrentYear] = useState<number>(
     new Date().getFullYear(),
   );
+  const [settings, setSettings] = useState(FALLBACK_SETTINGS);
 
   useEffect(() => {
     setCurrentYear(new Date().getFullYear());
+  }, []);
+
+  useEffect(() => {
+    contentClient
+      .fetch<SiteSettings | null>(SITE_SETTINGS_QUERY)
+      .then((data) => {
+        if (!data) return;
+        setSettings({
+          storeAddress: data.storeAddress || FALLBACK_SETTINGS.storeAddress,
+          instagramUrl: data.instagramUrl || FALLBACK_SETTINGS.instagramUrl,
+          xUrl: data.xUrl || FALLBACK_SETTINGS.xUrl,
+          tiktokUrl: data.tiktokUrl || FALLBACK_SETTINGS.tiktokUrl,
+        });
+      })
+      .catch(() => {});
   }, []);
 
   const togglePanel = (panel: FooterPanel) => {
@@ -93,13 +126,13 @@ const Footer = ({ reserveSummarySpace = false }: FooterProps) => {
         <div>
           <h2 className="text-base font-bold lg:text-base">SOCIALS</h2>
           <div className="mt-4 flex items-center gap-4.5 px-2 lg:mt-8 lg:gap-6">
-            <Link href="https://instagram.com" aria-label="Instagram">
+            <Link href={settings.instagramUrl} aria-label="Instagram">
               <InstagramIcon />
             </Link>
-            <Link href="https://x.com" aria-label="X">
+            <Link href={settings.xUrl} aria-label="X">
               <XIcon />
             </Link>
-            <Link href="https://tiktok.com" aria-label="TikTok">
+            <Link href={settings.tiktokUrl} aria-label="TikTok">
               <TikTokIcon />
             </Link>
           </div>
@@ -195,19 +228,13 @@ const Footer = ({ reserveSummarySpace = false }: FooterProps) => {
               />
             </button>
             <address
-              className={`overflow-hidden text-sm not-italic leading-relaxed transition-[max-height] duration-300 md:mt-5 md:max-h-none md:text-base lg:mt-5 lg:text-base ${
+              className={`overflow-hidden whitespace-pre-line text-sm not-italic leading-relaxed transition-[max-height] duration-300 md:mt-5 md:max-h-none md:text-base lg:mt-5 lg:text-base ${
                 openPanels.has("address")
                   ? "max-h-40 pb-5 md:max-h-none md:pb-0"
                   : "max-h-0 md:max-h-none"
               }`}
             >
-              Admiralty Mall
-              <br />
-              Lekki Phase 1, 2nd Floor,
-              <br />
-              Lagos, Lagos State
-              <br />
-              Nigeria
+              {settings.storeAddress}
             </address>
           </div>
         </div>
