@@ -35,3 +35,70 @@ body {
   color: var(--foreground);
   font-family: var(--font-dm-sans), Arial, Helvetica, sans-serif;
 }
+
+@keyframes gallery-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes site-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gallery-lightbox-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gallery-image-in {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.site-page-enter {
+  animation: site-page-enter 320ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.gallery-rise-in {
+  animation: gallery-rise-in 450ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.gallery-lightbox-in {
+  animation: gallery-lightbox-in 180ms ease-out both;
+}
+
+.gallery-image-in {
+  animation: gallery-image-in 260ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-page-enter,
+  .gallery-rise-in,
+  .gallery-lightbox-in,
+  .gallery-image-in {
+    animation: none;
+  }
+}

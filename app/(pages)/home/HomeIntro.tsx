@@ -11,21 +11,25 @@ const HERO_IMAGES = [
 
 const FADE_INTERVAL = 5000; // Time each image stays visible (5 seconds)
 
-const HomeIntro = () => {
+type HomeIntroProps = {
+  images?: string[];
+};
+
+const HomeIntro = ({ images = HERO_IMAGES }: HomeIntroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % HERO_IMAGES.length);
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, FADE_INTERVAL);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [images.length]);
 
   return (
     <div className="relative h-[75vh] min-h-[420px] lg:h-screen w-full overflow-hidden bg-black">
       {/* Background Images Crossfade */}
-      {HERO_IMAGES.map((src, index) => (
+      {images.map((src, index) => (
         <div
           key={src}
           className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ease-in-out ${
@@ -39,6 +43,8 @@ const HomeIntro = () => {
             alt={`Fashion hero ${index + 1}`}
             fill
             priority={index === 0}
+            loading={index === 1 ? "eager" : undefined}
+            quality={75}
             sizes="100vw"
             className="object-cover"
           />

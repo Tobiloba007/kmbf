@@ -1,5 +1,36 @@
 import { groq } from "next-sanity";
 
+export const HOME_PAGE_CONTENT_QUERY = groq`
+  *[_id == "homePage"][0] {
+    "heroImages": heroImages[]{
+      "url": asset->url + "?auto=format&fit=crop&w=1920&q=75"
+    },
+    "videoUrl": select(
+      videoSource == "upload" => videoFile.asset->url,
+      videoUrl
+    )
+  }
+`;
+
+export const GALLERY_PAGE_CONTENT_QUERY = groq`
+  *[_id == "galleryPage"][0] {
+    "images": images[]{
+      _key,
+      alt,
+      "url": asset->url + "?auto=format&fit=crop&w=1000&q=70"
+    }
+  }
+`;
+
+export const SITE_SETTINGS_QUERY = groq`
+  *[_id == "siteSettings"][0] {
+    storeAddress,
+    instagramUrl,
+    xUrl,
+    tiktokUrl
+  }
+`;
+
 // Fetch all products for collection grids
 export const ALL_PRODUCTS_QUERY = groq`
   *[_type == "product"] | order(_createdAt desc) {
